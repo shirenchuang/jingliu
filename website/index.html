@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="静流是一款本地优先的 X 信息流过滤扩展，用你的规则和 Jev 收起广告、低价值内容与不想看的主题。" />
+    <meta name="theme-color" content="#101820" />
+    <title>静流 — 把噪声收起来</title>
+    <link rel="icon" type="image/png" href="assets/jingliu-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="静流首页">
+        <img src="assets/jingliu-icon.png" width="36" height="36" alt="" />
+        <span><small>JEV FEED FILTER</small><strong>静流</strong></span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#how">工作方式</a>
+        <a href="#install">安装</a>
+        <a href="#privacy">隐私</a>
+        <a href="https://github.com/shirenchuang/jingliu" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+      <a class="header-download" href="downloads/jingliu-v0.5.0.zip" download>下载测试版</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> CHROME EXTENSION · X</p>
+          <h1>把噪声收起来，<br />把注意力还给自己。</h1>
+          <p class="hero-lead">静流按你的规则过滤 X 信息流。广告和关键词在本地处理，拿不准的内容再交给你自己的 Jev。</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="downloads/jingliu-v0.5.0.zip" download>
+              <span>下载 Chrome 测试版</span><i>↓</i>
+            </a>
+            <a class="secondary-link" href="#install">查看安装步骤</a>
+          </div>
+          <p class="release-note">v0.5.0 · 约 37 KB · MIT 开源 · API Key 只保存在本机</p>
+        </div>
+
+        <div class="hero-product" aria-label="静流产品界面预览">
+          <div class="product-caption"><span>LIVE FILTER</span><strong>自动过滤已开启</strong></div>
+          <img class="console-shot" src="assets/control-console.png" alt="静流过滤控制台，显示自动过滤、当前模式和 Jev 通道" />
+          <img class="popup-shot" src="assets/extension-popup.png" alt="静流 Chrome 扩展弹窗" />
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="产品特点">
+        <article><span>01</span><strong>本地优先</strong><p>广告标签、关键词和作者规则不经过 API。</p></article>
+        <article><span>02</span><strong>用户自带 Jev</strong><p>支持 TypeSafe、OpenRouter 与自定义兼容接口。</p></article>
+        <article><span>03</span><strong>可逆过滤</strong><p>内容默认只收起，不删除，随时可以查看或纠正。</p></article>
+      </section>
+
+      <section id="how" class="section architecture-section">
+        <div class="section-heading">
+          <p class="eyebrow">NO JINGLIU SERVER</p>
+          <h2>没有中转服务器，<br />你的内容不经过我们。</h2>
+        </div>
+        <div class="architecture">
+          <article class="architecture-node">
+            <span class="node-code">01 / BROWSER</span>
+            <strong>X 当前页面</strong>
+            <p>只读取浏览器已经载入的公开推文。</p>
+          </article>
+          <div class="flow-arrow"><span>本地规则</span><i>→</i></div>
+          <article class="architecture-node architecture-node--core">
+            <span class="node-code">02 / EXTENSION</span>
+            <strong>静流扩展</strong>
+            <p>先在用户电脑上完成广告、关键词和作者判断。</p>
+          </article>
+          <div class="flow-arrow"><span>仅不确定内容</span><i>→</i></div>
+          <article class="architecture-node">
+            <span class="node-code">03 / USER API</span>
+            <strong>用户的 Jev</strong>
+            <p>浏览器直接访问用户选择的服务商或自定义接口。</p>
+          </article>
+        </div>
+        <div class="architecture-note">
+          <strong>官网只负责页面与安装包下载。</strong>
+          <span>不开账号、不托管 Key、不代理 Jev 请求，也不需要应用服务器。</span>
+        </div>
+      </section>
+
+      <section class="section experience-section">
+        <div class="section-heading section-heading--wide">
+          <div><p class="eyebrow">QUIET BY DESIGN</p><h2>过滤发生了，<br />但不打断阅读。</h2></div>
+          <p>静流把不需要的内容压缩成一条轻量提示。滚动时自动生效，也能随时查看原文和纠正判断。</p>
+        </div>
+        <div class="feed-demo">
+          <img src="assets/collapsed-feed.png" alt="两条被静流收起的 X 内容，仅显示原因和查看按钮" />
+        </div>
+      </section>
+
+      <section id="install" class="section install-section">
+        <div class="install-copy">
+          <p class="eyebrow">INSTALL THE BETA</p>
+          <h2>三分钟装好。</h2>
+          <p>当前是开发者测试版。Chrome 不允许普通网站在 macOS 和 Windows 上直接静默安装未上架扩展，因此需要先下载 ZIP，再通过开发者模式加载。</p>
+          <a href="https://developer.chrome.com/docs/extensions/how-to/distribute" target="_blank" rel="noreferrer">查看 Chrome 官方分发说明 ↗</a>
+        </div>
+        <ol class="install-steps">
+          <li><span>1</span><div><strong>下载并解压</strong><p>下载测试包，双击 ZIP 得到 <code>jingliu-v0.5.0</code> 文件夹。</p></div></li>
+          <li><span>2</span><div><strong>打开扩展管理</strong><p>在 Chrome 地址栏输入 <code>chrome://extensions</code>，开启“开发者模式”。</p></div></li>
+          <li><span>3</span><div><strong>加载文件夹</strong><p>点击“加载已解压的扩展程序”，选择包含 <code>manifest.json</code> 的文件夹。</p></div></li>
+          <li><span>4</span><div><strong>刷新 X</strong><p>打开或刷新 X 页面，静流会默认自动运行。</p></div></li>
+        </ol>
+        <a class="wide-download" href="downloads/jingliu-v0.5.0.zip" download><span>下载静流 v0.5.0</span><i>ZIP · 约 37 KB ↓</i></a>
+        <p class="store-note">正式公开发布建议同步提交 Chrome Web Store；审核通过后，官网按钮就能改为“一键添加到 Chrome”。</p>
+      </section>
+
+      <section id="privacy" class="section privacy-section">
+        <div class="privacy-copy">
+          <p class="eyebrow">DATA BOUNDARY</p>
+          <h2>边界写清楚，<br />才能放心使用。</h2>
+        </div>
+        <div class="privacy-list">
+          <article><span>会读取</span><p>当前 X 页面已经载入的公开推文文字、作者与平台标签。</p></article>
+          <article><span>不会读取</span><p>私信、密码、Cookie、表单输入和未打开的历史内容。</p></article>
+          <article><span>可能发送</span><p>仅把需要语义判断的内容发给用户主动配置的 Jev 服务。</p></article>
+          <article><span>本机保存</span><p>规则、API Key、数量统计和不含原文的纠正记录。</p></article>
+        </div>
+        <a class="privacy-link" href="privacy.html">查看完整隐私说明 →</a>
+      </section>
+
+      <section class="final-cta">
+        <p class="eyebrow">YOUR FEED, YOUR RULES</p>
+        <h2>先把自己的时间线<br />安静下来。</h2>
+        <a class="primary-button primary-button--light" href="downloads/jingliu-v0.5.0.zip" download><span>下载测试版</span><i>↓</i></a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-brand"><img src="assets/jingliu-icon.png" width="32" height="32" alt="" /><strong>静流</strong></div>
+      <p>本地优先的 X 信息流过滤器。</p>
+      <div><a href="privacy.html">隐私</a><a href="https://github.com/shirenchuang/jingliu">源码</a><a href="#install">安装</a><span>MIT · © 2026</span></div>
+    </footer>
+    <script src="site.js"></script>
+  </body>
+</html>

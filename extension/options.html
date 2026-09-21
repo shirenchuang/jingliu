@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>静流过滤控制台</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="返回静流控制台顶部">
+        <span class="brand__mark" aria-hidden="true"><i></i><b></b><em></em></span>
+        <span><small>JINGLIU</small><strong>静流</strong></span>
+      </a>
+      <div class="topbar__actions">
+        <span class="version">V0.5.0 · X</span>
+        <a class="open-x" href="https://x.com/home" target="_blank" rel="noreferrer">打开 X <span>↗</span></a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar__intro">
+          <p class="eyebrow">CONTROL DESK</p>
+          <h1>过滤控制台</h1>
+          <p>先确认当前状态，再调整真正需要的规则。</p>
+        </div>
+        <nav aria-label="设置目录">
+          <a class="is-active" href="#overview" data-nav="overview"><span>总览</span><i>状态</i></a>
+          <a href="#policy" data-nav="policy"><span>过滤方式</span><i>常用</i></a>
+          <a href="#rules" data-nav="rules"><span>本地规则</span><i>本地</i></a>
+          <a href="#jev" data-nav="jev"><span>Jev 连接</span><i>BYOK</i></a>
+          <a href="#history" data-nav="history"><span>记录</span><i>统计</i></a>
+          <a href="#privacy" data-nav="privacy"><span>数据边界</span><i>隐私</i></a>
+        </nav>
+        <div class="local-note">
+          <span aria-hidden="true"></span>
+          <div><strong>本地优先</strong><small>硬规则不经过任何 API</small></div>
+        </div>
+      </aside>
+
+      <form id="settingsForm" class="console">
+        <section id="overview" class="overview" data-section>
+          <div class="signal-track" aria-hidden="true"><span></span><i></i><b></b></div>
+          <div class="overview__heading">
+            <div>
+              <p class="eyebrow">CURRENT POLICY</p>
+              <h2>让时间线只留下<br />值得看的内容。</h2>
+            </div>
+            <p>静流先在本地处理明确规则，再把拿不准的公开推文交给你配置的 Jev。</p>
+          </div>
+          <div class="status-board">
+            <article class="status-item status-item--switch">
+              <div><span>自动过滤</span><strong id="overviewAuto">已开启</strong></div>
+              <label class="switch">
+                <input id="autoMode" name="autoMode" type="checkbox" />
+                <span aria-hidden="true"></span>
+                <em class="sr-only">自动过滤</em>
+              </label>
+            </article>
+            <article class="status-item">
+              <span>当前模式</span>
+              <strong id="overviewPreset">均衡</strong>
+            </article>
+            <article class="status-item">
+              <span>Jev 通道</span>
+              <strong id="overviewProvider">TypeSafe</strong>
+            </article>
+          </div>
+        </section>
+
+        <section id="policy" class="panel" data-section>
+          <header class="panel-heading">
+            <div><p class="eyebrow">FILTER BEHAVIOR</p><h2>过滤方式</h2></div>
+            <span class="section-tag">最常用</span>
+          </header>
+
+          <div class="preset-head">
+            <div><strong>选择一个起点</strong><span>之后仍可修改下面的自然语言规则</span></div>
+            <output id="presetState">均衡</output>
+          </div>
+          <div class="preset-grid" role="group" aria-label="选择规则预设">
+            <button type="button" data-preset="balanced"><strong>均衡</strong><small>保守处理明显噪声</small></button>
+            <button type="button" data-preset="research"><strong>研究模式</strong><small>优先技术与一手资料</small></button>
+            <button type="button" data-preset="strict"><strong>强力降噪</strong><small>积极收起低信息内容</small></button>
+            <button type="button" data-preset="adsOnly"><strong>只去广告</strong><small>其他内容尽量保留</small></button>
+          </div>
+
+          <div class="policy-grid">
+            <label class="field">
+              <span>我不想看到</span>
+              <textarea id="profile" name="profile" rows="5" placeholder="例如：隐藏软广、课程推广、情绪化争吵和没有信息增量的内容。"></textarea>
+              <small>这是 Jev 判断时优先级最高的过滤政策。</small>
+            </label>
+            <label class="field">
+              <span>我希望优先保留</span>
+              <textarea id="keepRules" name="keepRules" rows="5" placeholder="例如：AI、机器人、开发工具、原创分析和重大新闻。"></textarea>
+              <small>不确定时，命中这些主题的内容会优先保留。</small>
+            </label>
+          </div>
+
+          <div class="behavior-grid">
+            <fieldset class="display-choice">
+              <legend>过滤后怎么显示</legend>
+              <label><input type="radio" name="displayMode" value="collapse" /><span><strong>收起</strong><small>推荐，可随时查看</small></span></label>
+              <label><input type="radio" name="displayMode" value="hide" /><span><strong>完全隐藏</strong><small>只从弹窗恢复</small></span></label>
+            </fieldset>
+            <label class="range-field">
+              <span><strong>判断保守程度</strong><output id="confidenceValue">76%</output></span>
+              <input id="confidenceThreshold" name="confidenceThreshold" type="range" min="0.5" max="0.95" step="0.01" />
+              <small>数值越高，越不容易误伤正常内容。</small>
+            </label>
+          </div>
+        </section>
+
+        <section id="rules" class="panel" data-section>
+          <header class="panel-heading">
+            <div><p class="eyebrow">LOCAL RULES</p><h2>本地规则</h2></div>
+            <span class="section-tag section-tag--mint">不消耗 API</span>
+          </header>
+          <label class="ad-toggle">
+            <input id="filterAds" name="filterAds" type="checkbox" />
+            <span class="check-box" aria-hidden="true"></span>
+            <span><strong>过滤 X 标记的广告</strong><small>识别 Ad、Promoted、广告、推广等平台标签</small></span>
+          </label>
+          <div class="rules-grid">
+            <label class="field field--primary">
+              <span>硬过滤词</span>
+              <textarea id="hardBlockTerms" name="hardBlockTerms" rows="5" placeholder="每行一个词"></textarea>
+              <small>命中即收起，不发送给 Jev。</small>
+            </label>
+            <label class="field">
+              <span>总是保留的作者</span>
+              <textarea id="alwaysKeepAuthors" name="alwaysKeepAuthors" rows="5" placeholder="@handle，每行一个"></textarea>
+              <small>白名单优先级最高。</small>
+            </label>
+            <label class="field">
+              <span>始终屏蔽的作者</span>
+              <textarea id="blockedAuthors" name="blockedAuthors" rows="5" placeholder="@handle，每行一个"></textarea>
+              <small>无需 Jev 判断。</small>
+            </label>
+          </div>
+        </section>
+
+        <section id="jev" class="panel panel--jev" data-section>
+          <header class="panel-heading">
+            <div><p class="eyebrow">JEV CONNECTION</p><h2>连接你的 Jev</h2></div>
+            <span id="connectionState" class="connection-state">等待配置</span>
+          </header>
+          <p id="providerLead" class="panel-lead">直连 TypeSafe，也可以通过 OpenRouter 调用原生 Jev Decisions API。</p>
+
+          <div class="provider-grid" role="group" aria-label="选择 Jev 服务商">
+            <button type="button" data-provider="typesafe"><span class="provider-dot"></span><strong>TypeSafe</strong><small>官方 SystemOne</small></button>
+            <button type="button" data-provider="openrouter"><span class="provider-dot"></span><strong>OpenRouter</strong><small>使用 OpenRouter Key</small></button>
+            <button type="button" data-provider="custom"><span class="provider-dot"></span><strong>自定义</strong><small>兼容接口或网关</small></button>
+          </div>
+
+          <div class="connection-box">
+            <div class="endpoint-grid">
+              <label class="field">
+                <span>Decisions API 接口</span>
+                <input id="apiEndpoint" name="apiEndpoint" type="url" spellcheck="false" autocomplete="url" />
+              </label>
+              <label class="field">
+                <span>模型</span>
+                <input id="model" name="model" type="text" spellcheck="false" placeholder="jev-latest" />
+              </label>
+            </div>
+            <label class="field">
+              <span id="apiKeyLabel">API Key</span>
+              <div class="secret-field">
+                <input id="apiKey" name="apiKey" type="password" spellcheck="false" autocomplete="off" placeholder="粘贴 API Key" />
+                <button id="toggleSecret" type="button" aria-label="显示或隐藏 API Key">显示</button>
+              </div>
+              <small>密钥只保存在本机 Chrome 的扩展存储中。</small>
+            </label>
+            <div class="connection-actions">
+              <button id="testConnection" class="test-button" type="button">测试连接</button>
+              <a id="providerDocs" href="https://docs.typesafe.ai/introduction/quickstart" target="_blank" rel="noreferrer">查看接入说明 ↗</a>
+            </div>
+          </div>
+
+          <details class="advanced-details">
+            <summary><span><strong>高级决策指令</strong><small>调整 keep / collapse / hide 的取舍方式</small></span><i>展开</i></summary>
+            <label class="field">
+              <span>Jev 决策指令</span>
+              <textarea id="decisionPrompt" name="decisionPrompt" rows="5"></textarea>
+            </label>
+          </details>
+        </section>
+
+        <div class="lower-grid">
+          <section id="history" class="panel panel--compact" data-section>
+            <header class="panel-heading">
+              <div><p class="eyebrow">LOCAL HISTORY</p><h2>过滤记录</h2></div>
+              <span class="section-tag">仅统计</span>
+            </header>
+            <div class="history-metrics">
+              <article><strong id="historyRuns">0</strong><span>运行</span></article>
+              <article><strong id="historyFiltered">0</strong><span>已收起</span></article>
+              <article><strong id="feedbackCount">0</strong><span>纠正</span></article>
+            </div>
+            <ol id="historyList" class="history-list"><li class="history-empty">还没有过滤记录。</li></ol>
+            <p id="feedbackSummary" class="feedback-summary">纠正记录会帮助你调整规则。</p>
+          </section>
+
+          <section id="privacy" class="panel panel--compact" data-section>
+            <header class="panel-heading">
+              <div><p class="eyebrow">DATA BOUNDARY</p><h2>数据边界</h2></div>
+            </header>
+            <div class="boundary-list">
+              <article><span>读取</span><strong>当前页面已载入的公开推文、作者与平台标签</strong></article>
+              <article><span>不读取</span><strong>私信、密码、Cookie、表单输入和未打开内容</strong></article>
+              <article><span>发送</span><strong>仅把需要语义判断的内容交给你配置的 Jev</strong></article>
+            </div>
+          </section>
+        </div>
+
+        <div class="savebar">
+          <p id="saveStatus" role="status" aria-live="polite">修改后记得保存。</p>
+          <div>
+            <button id="resetDefaults" class="secondary-button" type="button">恢复默认</button>
+            <button class="save-button" type="submit">保存设置 <span>→</span></button>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <script src="shared.js"></script>
+    <script src="core.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

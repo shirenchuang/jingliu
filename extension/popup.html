@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>静流 Jingliu</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="brand-row">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true"><span></span><i></i><b></b></div>
+          <div>
+            <p class="eyebrow">QUIETFEED / X</p>
+            <h1>静流</h1>
+          </div>
+        </div>
+        <button class="settings-button" id="openSettings" type="button">设置</button>
+      </header>
+
+      <section class="auto-panel" aria-labelledby="autoTitle">
+        <div class="signal-line" aria-hidden="true"><span></span><i></i><b></b></div>
+        <div class="auto-panel__row">
+          <div>
+            <p class="section-label">自动过滤</p>
+            <h2 id="autoTitle">已开启</h2>
+            <p id="autoDescription">刷新和滚动 X 时自动生效</p>
+          </div>
+          <label class="switch">
+            <input id="autoMode" type="checkbox" />
+            <span aria-hidden="true"></span>
+            <em class="sr-only">自动过滤</em>
+          </label>
+        </div>
+      </section>
+
+      <button class="primary-button" id="runFilter" type="button">
+        <span id="runLabel">立即扫描当前页面</span>
+        <span class="button-arrow" aria-hidden="true">→</span>
+      </button>
+      <p class="status" id="status" aria-live="polite">正在读取 X 页面…</p>
+      <p class="page-summary" id="pageSummary">本页：等待读取</p>
+
+      <section class="quick-card" aria-label="快速设置">
+        <div class="quick-row">
+          <label for="quickPreset">过滤模式</label>
+          <select id="quickPreset">
+            <option value="balanced">均衡</option>
+            <option value="research">研究模式</option>
+            <option value="strict">强力降噪</option>
+            <option value="adsOnly">只去广告</option>
+            <option value="custom" disabled>自定义规则</option>
+          </select>
+        </div>
+        <p class="preset-description" id="presetDescription">过滤明显噪声，边界内容保守折叠</p>
+        <div class="divider"></div>
+        <div class="jev-row">
+          <span id="apiDot" class="api-dot" aria-hidden="true"></span>
+          <div class="jev-copy">
+            <strong id="apiStatus">检查 Jev 配置中</strong>
+            <span id="profileSummary">读取过滤偏好…</span>
+          </div>
+          <button class="configure-button" id="configureJev" type="button">配置 Jev</button>
+        </div>
+      </section>
+
+      <footer>
+        <button class="text-button" id="restoreAll" type="button">恢复本页内容</button>
+        <span>默认自动生效</span>
+      </footer>
+    </main>
+    <script src="shared.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
