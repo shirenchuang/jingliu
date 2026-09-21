@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "静流 Jingliu — Jev 语义过滤器",
+  "name": "Jingliu 静流 — AI Feed Filter",
   "version": "0.5.0",
-  "description": "用你的规则和 Jev 折叠 X 上的广告、低价值内容与不想看的主题。",
+  "description": "A local-first AI feed filter for X today and more platforms next. 用你的规则和 Jev 收起噪声。",
   "permissions": ["storage"],
   "host_permissions": [
     "https://api.typesafe.ai/*",
@@ -17,7 +17,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "静流 Jingliu",
+    "default_title": "Jingliu 静流 — AI Feed Filter",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon-16.png",

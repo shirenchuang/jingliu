@@ -1,62 +1,85 @@
-# 静流 Jingliu
+# Jingliu (静流) — AI Feed Filter
 
-> 把噪声收起来，把注意力还给自己。
+> Quiet the feed. Keep the signal.
 
-静流是一个本地优先、用户自带 Jev 的 Chrome 信息流过滤扩展。它先在浏览器中处理广告标签、关键词和作者规则，只把本地无法确定的公开内容交给用户配置的 TypeSafe、OpenRouter 或自定义兼容接口。
+English · [简体中文](README.zh-CN.md)
+
+Jingliu is a local-first, user-controlled AI feed filter. It applies ad labels, keywords, author rules, and allowlists directly in your browser. Only uncertain public feed items are sent to the Jev provider you choose: TypeSafe, OpenRouter, or a compatible custom endpoint.
+
+**X / Twitter is the first working adapter, not the product boundary.** The filtering engine is separated from platform-specific DOM adapters so Jingliu can grow into a multi-platform feed layer.
 
 [![CI](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml/badge.svg)](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-101820.svg)](LICENSE)
+[![Download](https://img.shields.io/badge/Download-v0.5.0-315CFF.svg)](https://github.com/shirenchuang/jingliu/releases/latest)
 
-![静流过滤控制台](website/assets/control-console.png)
+![Jingliu control console](website/assets/control-console.png)
 
-## 为什么做静流
+## Why Jingliu
 
-大多数信息流工具替你决定什么值得看。静流把决定权留给用户：规则、模型、API Key 和过滤强度都由用户控制；内容默认只折叠、不删除，可以随时查看或纠正。
+Most feed algorithms decide what deserves your attention. Jingliu gives that decision back to you: you choose the rules, model provider, API key, and filtering strength. Content is collapsed by default instead of deleted, so every decision stays reversible.
 
-## 已实现
+## Install
 
-- 自动过滤 X / Twitter 当前页面和滚动加载的新内容
-- 本地广告标签、关键词、作者黑白名单
-- 均衡、研究、强力降噪、只去广告四种预设
-- TypeSafe Jev、OpenRouter Jev 与自定义 SystemOne 兼容端点
-- 用户自带 API Key，保存在 `chrome.storage.local`
-- 低置信度保护、单条恢复、整页恢复与重新扫描
-- 适配 X 虚拟列表和 DOM 节点复用
-- 无账号、无遥测、无静流中转服务器
+| Channel | Status | Notes |
+| --- | --- | --- |
+| [GitHub Releases](https://github.com/shirenchuang/jingliu/releases/latest) | ✅ Available | Download the beta ZIP and load it in developer mode |
+| Chrome Web Store | 🚧 Preparing | One-click installation and automatic updates after publication |
+| Microsoft Edge Add-ons | 🧭 Planned | After cross-browser validation |
+| Firefox Add-ons | 🧭 Planned | Requires WebExtension compatibility work |
 
-## 安装测试版
+### Install the current beta
 
-1. 从 [Releases](https://github.com/shirenchuang/jingliu/releases) 下载最新 ZIP 并解压。
-2. 在 Chrome 打开 `chrome://extensions`。
-3. 开启右上角“开发者模式”。
-4. 点击“加载已解压的扩展程序”，选择包含 `manifest.json` 的文件夹。
-5. 打开或刷新 `https://x.com/home`。
+1. Download the latest ZIP from [GitHub Releases](https://github.com/shirenchuang/jingliu/releases/latest) and extract it.
+2. Open `chrome://extensions` in Chrome.
+3. Enable **Developer mode**.
+4. Click **Load unpacked** and select the folder containing `manifest.json`.
+5. Open or refresh `https://x.com/home`.
 
-Chrome Web Store 版本尚未发布。当前版本适合开发者和愿意手动安装的测试用户。
+## Platform roadmap
 
-## 工作方式
+| Platform | Status | Scope |
+| --- | --- | --- |
+| X / Twitter web | ✅ Beta | Feed filtering, continuous scrolling, virtual-list recovery |
+| Reddit | 🧭 Planned | Communities, posts, and promoted content |
+| YouTube | 🧭 Planned | Home recommendations, search results, and comments |
+| LinkedIn | 🧭 Planned | Home feed and sponsored content |
+| Generic web feeds | 🔬 Exploring | Configurable extractors and a community adapter SDK |
+
+Roadmap items describe direction, not delivery dates. See [ROADMAP.md](ROADMAP.md) for the proposed sequence.
+
+## Features available today
+
+- Automatic filtering for newly loaded X / Twitter posts
+- Local ad-label, keyword, author blocklist, and allowlist rules
+- Balanced, research, aggressive, and ads-only presets
+- TypeSafe Jev, OpenRouter Jev, and custom SystemOne-compatible endpoints
+- Bring your own API key, stored in `chrome.storage.local`
+- Confidence safeguards, per-item restore, restore-all, and rescan
+- No Jingliu account, telemetry SDK, or proxy server
+
+## How it works
 
 ```text
-X 当前页面
+Platform feed
     │
     ▼
-浏览器本地规则 ── 明确结果 ──▶ 保留 / 折叠
+Local browser rules ── clear decision ──▶ keep / collapse
     │
-    └── 无法确定 ──▶ 用户配置的 Jev ──▶ 保留 / 折叠 / 隐藏
+    └── uncertain ──▶ your Jev provider ──▶ keep / collapse / hide
 ```
 
-静流官网只提供说明和安装包。扩展请求由用户浏览器直接发往用户选择的服务商，不经过静流服务器。
+The website only serves documentation and downloads. Extension requests go directly from the user's browser to the provider selected by that user.
 
-## 项目结构
+## Repository layout
 
 ```text
-extension/            Chrome Manifest V3 扩展与测试
-website/              可直接静态部署的产品官网
-scripts/              发行打包脚本
-.github/workflows/    CI 与 GitHub Pages 部署
+extension/            Chrome Manifest V3 extension and tests
+website/              Static product website
+scripts/              Release packaging
+.github/workflows/    CI and website deployment
 ```
 
-## 本地开发
+## Development
 
 ```bash
 cd extension
@@ -66,30 +89,20 @@ npm test
 npm run test:e2e
 ```
 
-扩展不需要构建即可加载。生成可发布 ZIP：
+The extension has no build step. From the repository root, create a release ZIP with:
 
 ```bash
 npm run package
 ```
 
-输出位于 `dist/`，并同步到官网的 `website/downloads/`。
+## Privacy and security
 
-## 路线图
+Read [PRIVACY.md](PRIVACY.md) and [SECURITY.md](SECURITY.md). Never include real API keys, cookies, private messages, or personal feed data in issues, logs, or screenshots.
 
-- 提交 Chrome Web Store
-- 增加 Reddit、YouTube、LinkedIn 等平台适配器
-- 支持规则导入导出
-- 改进模型成本与调用频率控制
-- 在不破坏本地优先原则的前提下探索可选同步
+## Contributing
 
-## 隐私与安全
-
-请先阅读 [PRIVACY.md](PRIVACY.md) 和 [SECURITY.md](SECURITY.md)。不要在 Issue、日志或截图中提交真实 API Key。
-
-## 参与贡献
-
-欢迎提交 Bug、平台适配器、文档和交互改进。开始前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+Platform adapters, bug fixes, documentation, and product improvements are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 石臻及静流贡献者。
+[MIT](LICENSE) © 2026 Shizhen and Jingliu contributors.

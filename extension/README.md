@@ -1,6 +1,6 @@
-# 静流 Jingliu — Jev 信息流过滤器
+# Jingliu（静流）— AI Feed Filter
 
-静流是一个无需构建、可以直接加载到 Chrome 的 Manifest V3 扩展。当前支持 X / Twitter：先用本地规则过滤平台广告、关键词和作者，再把剩余公开推文批量交给用户自己的 Jev 做语义判断。Jev 可以直连 TypeSafe，也可以通过 OpenRouter 原生 Decisions API 调用。
+Jingliu 是一个无需构建、可以直接加载到 Chrome 的 Manifest V3 AI 信息流过滤器。当前首个可用适配器是 X / Twitter：先用本地规则过滤平台广告、关键词和作者，再把剩余公开内容批量交给用户自己的 Jev 做语义判断。Jev 可以直连 TypeSafe，也可以通过 OpenRouter 原生 Decisions API 调用。核心规则与平台适配层相互独立，后续将扩展到更多信息流平台。
 
 过滤结果默认只折叠、不删除，单条可展开，整页也可恢复。
 

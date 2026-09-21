@@ -2,6 +2,7 @@
 node_modules/
 extension/node_modules/
 dist/
+/jingliu-site-*.zip
 playwright-report/
 test-results/
 *.pem
