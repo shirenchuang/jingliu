@@ -8,6 +8,7 @@
     "test": "npm --prefix extension test",
     "test:e2e": "npm --prefix extension run test:e2e",
     "test:all": "npm --prefix extension run test:all",
-    "package": "./scripts/package-extension.sh"
+    "package": "./scripts/package-extension.sh",
+    "store:assets": "node scripts/generate-store-assets.mjs"
   }
 }

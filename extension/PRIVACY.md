@@ -25,3 +25,11 @@ TypeSafe 官方接口为 `https://api.typesafe.ai/v1/systemone`；OpenRouter Jev
 规则导出文件不包含 API Key、接口地址、历史记录、反馈记录或推文内容。导入后规则仅载入设置页供用户检查，用户点击“保存设置”后才会写入本地存储。
 
 卸载扩展会由浏览器清除扩展的本地存储。
+
+## 有限使用（Limited Use）
+
+静流对网站信息及用户配置接口所返回信息的使用，遵守 Chrome 应用商店用户数据政策及其中的 Limited Use 要求。相关数据只用于提供或改进用户直接使用的信息流过滤功能，不出售、不用于广告、不转移给无关用途，也不会供人工查看；法律要求、安全处置，或用户明确同意并主动请求支持的情况除外。
+
+## 联系我们
+
+隐私问题与支持请求可通过 [GitHub Issues](https://github.com/shirenchuang/jingliu/issues) 提交。
