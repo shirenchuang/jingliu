@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Jingliu 静流 — AI Feed Filter",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A local-first AI feed filter for X today and more platforms next. 用你的规则和 Jev 收起噪声。",
   "permissions": ["storage"],
   "host_permissions": [

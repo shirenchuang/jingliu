@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Jingliu is a local-first AI feed filter that uses your rules and your Jev provider to collapse ads, low-signal posts, and unwanted topics." />
+    <meta name="theme-color" content="#101820" />
+    <title>Jingliu — Quiet the feed</title>
+    <link rel="icon" type="image/png" href="assets/jingliu-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Jingliu home">
+        <img src="assets/jingliu-icon.png" width="36" height="36" alt="" />
+        <span><small>AI FEED FILTER</small><strong>Jingliu · 静流</strong></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#how">How it works</a>
+        <a href="#install">Install</a>
+        <a href="#privacy">Privacy</a>
+        <a href="https://github.com/shirenchuang/jingliu" target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+      <div class="header-actions">
+        <a class="language-link" href="index.html" lang="zh-CN" hreflang="zh-CN" aria-label="查看中文网站">中文</a>
+        <a class="header-download" href="downloads/jingliu-v0.6.0.zip" download>Download beta</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> JINGLIU · AI FEED FILTER</p>
+          <h1>Quiet the feed.<br />Keep the signal.</h1>
+          <p class="hero-lead">Jingliu filters feeds by your rules. Ads, keywords, and author lists stay in your browser. Only uncertain public posts go to the Jev provider you choose.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="downloads/jingliu-v0.6.0.zip" download>
+              <span>Download Chrome beta</span><i>↓</i>
+            </a>
+            <a class="secondary-link" href="#install">Installation guide</a>
+          </div>
+          <p class="release-note">v0.6.0 · MIT licensed · X first, more platforms next</p>
+        </div>
+
+        <div class="hero-product" aria-label="Jingliu product preview">
+          <div class="product-caption"><span>LIVE FILTER</span><strong>Auto filtering on</strong></div>
+          <img class="console-shot" src="assets/control-console.png" alt="Jingliu filter control console" />
+          <img class="popup-shot" src="assets/extension-popup.png" alt="Jingliu Chrome extension popup" />
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="Product principles">
+        <article><span>01</span><strong>Local first</strong><p>Ad labels, keywords, and author rules never touch an API.</p></article>
+        <article><span>02</span><strong>Bring your Jev</strong><p>Connect TypeSafe, OpenRouter, or a compatible endpoint.</p></article>
+        <article><span>03</span><strong>Reversible</strong><p>Content is collapsed by default, never silently deleted.</p></article>
+      </section>
+
+      <section id="how" class="section architecture-section">
+        <div class="section-heading">
+          <p class="eyebrow">NO JINGLIU SERVER</p>
+          <h2>Your feed does not<br />pass through us.</h2>
+        </div>
+        <div class="architecture">
+          <article class="architecture-node">
+            <span class="node-code">01 / BROWSER</span>
+            <strong>The open feed</strong>
+            <p>Jingliu reads only public posts already loaded on the current page.</p>
+          </article>
+          <div class="flow-arrow"><span>Local rules</span><i>→</i></div>
+          <article class="architecture-node architecture-node--core">
+            <span class="node-code">02 / EXTENSION</span>
+            <strong>Jingliu</strong>
+            <p>Clear ad, keyword, allowlist, and blocklist decisions happen on your device.</p>
+          </article>
+          <div class="flow-arrow"><span>Uncertain only</span><i>→</i></div>
+          <article class="architecture-node">
+            <span class="node-code">03 / YOUR API</span>
+            <strong>Your Jev</strong>
+            <p>The browser talks directly to the provider or endpoint you configured.</p>
+          </article>
+        </div>
+        <div class="architecture-note">
+          <strong>The website only serves pages and downloads.</strong>
+          <span>No account, hosted keys, or Jev proxy. X is the first adapter; Reddit, YouTube, and LinkedIn are on the roadmap.</span>
+        </div>
+      </section>
+
+      <section class="section experience-section">
+        <div class="section-heading section-heading--wide">
+          <div><p class="eyebrow">QUIET BY DESIGN</p><h2>Filtering happens<br />without breaking flow.</h2></div>
+          <p>Unwanted posts become a compact line with a reason. New posts are handled while you scroll, and every decision can be opened or corrected.</p>
+        </div>
+        <div class="feed-demo">
+          <img src="assets/collapsed-feed.png" alt="Two X posts collapsed by Jingliu into compact explanations" />
+        </div>
+      </section>
+
+      <section id="install" class="section install-section">
+        <div class="install-copy">
+          <p class="eyebrow">INSTALL THE BETA</p>
+          <h2>Ready in three minutes.</h2>
+          <p>This is a developer beta. Until Jingliu is listed in the Chrome Web Store, Chrome requires you to download the ZIP and load the extracted folder in Developer mode.</p>
+          <a href="https://developer.chrome.com/docs/extensions/how-to/distribute" target="_blank" rel="noreferrer">Chrome distribution documentation ↗</a>
+        </div>
+        <ol class="install-steps">
+          <li><span>1</span><div><strong>Download and extract</strong><p>Download the beta ZIP and extract the folder containing <code>manifest.json</code>.</p></div></li>
+          <li><span>2</span><div><strong>Open extension management</strong><p>Enter <code>chrome://extensions</code> in Chrome and turn on Developer mode.</p></div></li>
+          <li><span>3</span><div><strong>Load the folder</strong><p>Click <strong>Load unpacked</strong> and select the extracted Jingliu folder.</p></div></li>
+          <li><span>4</span><div><strong>Refresh X</strong><p>Open or refresh X. Jingliu starts filtering automatically.</p></div></li>
+        </ol>
+        <a class="wide-download" href="downloads/jingliu-v0.6.0.zip" download><span>Download Jingliu v0.6.0</span><i>ZIP ↓</i></a>
+        <p class="store-note">A Chrome Web Store release is in preparation. Once approved, this button can become one-click installation with automatic updates.</p>
+      </section>
+
+      <section id="privacy" class="section privacy-section">
+        <div class="privacy-copy">
+          <p class="eyebrow">DATA BOUNDARY</p>
+          <h2>Know what stays<br />on your device.</h2>
+        </div>
+        <div class="privacy-list">
+          <article><span>READS</span><p>Public post text, authors, and platform labels already loaded on the current X page.</p></article>
+          <article><span>NEVER READS</span><p>Direct messages, passwords, cookies, form input, or unopened history.</p></article>
+          <article><span>MAY SEND</span><p>Only uncertain public content, directly to the Jev service you configured.</p></article>
+          <article><span>STORES LOCALLY</span><p>Rules, API key, counters, and corrections that do not contain post text.</p></article>
+        </div>
+        <a class="privacy-link" href="privacy-en.html">Read the full privacy notice →</a>
+      </section>
+
+      <section class="final-cta">
+        <p class="eyebrow">YOUR FEED, YOUR RULES</p>
+        <h2>Make your timeline<br />quiet again.</h2>
+        <a class="primary-button primary-button--light" href="downloads/jingliu-v0.6.0.zip" download><span>Download the beta</span><i>↓</i></a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-brand"><img src="assets/jingliu-icon.png" width="32" height="32" alt="" /><strong>Jingliu</strong></div>
+      <p>A local-first AI feed filter.</p>
+      <div><a href="privacy-en.html">Privacy</a><a href="https://github.com/shirenchuang/jingliu">Source</a><a href="#install">Install</a><span>MIT · © 2026</span></div>
+    </footer>
+    <script src="site.js"></script>
+  </body>
+</html>

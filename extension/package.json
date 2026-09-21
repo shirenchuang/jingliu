@@ -1,10 +1,10 @@
 {
   "name": "jingliu-jev-filter",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "description": "Local-first X feed filtering Chrome extension powered by TypeSafe Jev.",
   "scripts": {
-    "test": "node --test tests/core.test.js tests/background.test.js",
+    "test": "node --test tests/shared.test.js tests/core.test.js tests/background.test.js",
     "test:e2e": "node --test tests/browser.e2e.test.js",
     "test:all": "npm test && npm run test:e2e",
     "check": "node --check shared.js && node --check core.js && node --check background.js && node --check popup.js && node --check options.js && node --check content/x.js"

@@ -13,7 +13,7 @@
         <span><small>AI FEED FILTER</small><strong>静流</strong></span>
       </a>
       <div class="topbar__actions">
-        <span class="version">V0.5.0 · X</span>
+        <span class="version">V0.6.0 · X</span>
         <a class="open-x" href="https://x.com/home" target="_blank" rel="noreferrer">打开 X <span>↗</span></a>
       </div>
     </header>
@@ -139,6 +139,17 @@
               <textarea id="blockedAuthors" name="blockedAuthors" rows="5" placeholder="@handle，每行一个"></textarea>
               <small>无需 Jev 判断。</small>
             </label>
+          </div>
+          <div class="rules-backup">
+            <div>
+              <strong>备份与迁移规则</strong>
+              <small>导出文件不包含 API Key、历史记录或推文内容。导入后先预览，点击“保存设置”才会生效。</small>
+            </div>
+            <div class="rules-backup__actions">
+              <button id="exportRules" class="secondary-button" type="button">导出规则</button>
+              <button id="importRules" class="secondary-button" type="button">导入规则</button>
+              <input id="rulesFile" class="sr-only" type="file" accept="application/json,.json" />
+            </div>
           </div>
         </section>
 

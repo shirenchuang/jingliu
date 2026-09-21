@@ -157,6 +157,51 @@ test("popup and redesigned control console load, edit and save settings", { time
     await options.locator("#testConnection").click();
     await waitForText(options, "#saveStatus", "连接成功");
     assert.equal(await options.locator("#connectionState").innerText(), "连接正常");
+
+    const downloadPromise = options.waitForEvent("download");
+    await options.locator("#exportRules").click();
+    const download = await downloadPromise;
+    const stream = await download.createReadStream();
+    const chunks = [];
+    for await (const chunk of stream) chunks.push(chunk);
+    const exported = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+    assert.equal(exported.product, "Jingliu");
+    assert.equal(exported.rules.profile, await options.locator("#profile").inputValue());
+    assert.equal("apiKey" in exported.rules, false);
+    assert.equal("filterHistory" in exported.rules, false);
+
+    const importedBackup = JSON.stringify({
+      product: "Jingliu",
+      schemaVersion: 1,
+      rules: {
+        activePreset: "research",
+        autoMode: true,
+        profile: "优先保留原始研究",
+        keepRules: "论文与一手数据",
+        hardBlockTerms: "抽奖",
+        blockedAuthors: "@noise",
+        alwaysKeepAuthors: "@researcher",
+        filterAds: true,
+        displayMode: "collapse",
+        confidenceThreshold: 0.9,
+        decisionPrompt: "保守判断"
+      }
+    });
+    await options.locator("#rulesFile").setInputFiles({
+      name: "jingliu-rules.json",
+      mimeType: "application/json",
+      buffer: Buffer.from(importedBackup)
+    });
+    await waitForText(options, "#saveStatus", "规则已导入");
+    assert.equal(await options.locator("#profile").inputValue(), "优先保留原始研究");
+    assert.equal(await options.locator("#overviewPreset").innerText(), "自定义");
+    assert.equal(await options.locator("#confidenceValue").innerText(), "90%");
+    assert.equal(await options.locator("#apiKey").inputValue(), "custom-test-key");
+    assert.notEqual(await options.evaluate(() => globalThis.__jingliuMock.stored.profile), "优先保留原始研究");
+
+    await options.locator('button[type="submit"]').click();
+    await waitForText(options, "#saveStatus", "已保存。回到 X");
+    assert.equal(await options.evaluate(() => globalThis.__jingliuMock.stored.profile), "优先保留原始研究");
   } finally {
     await browser.close();
     await server.close();

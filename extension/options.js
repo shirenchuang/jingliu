@@ -6,6 +6,9 @@ const apiKey = document.querySelector("#apiKey");
 const toggleSecret = document.querySelector("#toggleSecret");
 const testButton = document.querySelector("#testConnection");
 const resetButton = document.querySelector("#resetDefaults");
+const exportRulesButton = document.querySelector("#exportRules");
+const importRulesButton = document.querySelector("#importRules");
+const rulesFile = document.querySelector("#rulesFile");
 const presetButtons = [...document.querySelectorAll("[data-preset]")];
 const presetState = document.querySelector("#presetState");
 const providerButtons = [...document.querySelectorAll("[data-provider]")];
@@ -114,12 +117,51 @@ resetButton.addEventListener("click", async () => {
   setStatus("已恢复默认设置。", "good");
 });
 
+exportRulesButton.addEventListener("click", () => {
+  const backup = JingliuShared.createRulesBackup(readForm());
+  const date = backup.exportedAt.slice(0, 10);
+  const url = URL.createObjectURL(
+    new Blob([`${JSON.stringify(backup, null, 2)}\n`], { type: "application/json" })
+  );
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `jingliu-rules-${date}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1_000);
+  setStatus("规则已导出；文件中不包含 API Key 或历史记录。", "good");
+});
+
+importRulesButton.addEventListener("click", () => rulesFile.click());
+rulesFile.addEventListener("change", async () => {
+  const file = rulesFile.files?.[0];
+  if (!file) return;
+  try {
+    if (file.size > 100_000) throw new Error("规则备份不能超过 100 KB");
+    const rules = JingliuShared.parseRulesBackup(JSON.parse(await file.text()));
+    applyImportedRules(rules);
+    setStatus("规则已导入到当前页面；检查后点击“保存设置”生效。", "good");
+  } catch (error) {
+    setStatus(error.message || "规则导入失败", "error");
+  } finally {
+    rulesFile.value = "";
+  }
+});
+
 async function loadIntoForm() {
   const settings = await JingliuShared.loadSettings();
   activePreset = JingliuShared.FILTER_PRESETS[settings.activePreset]
     ? settings.activePreset
     : "custom";
   activeProvider = inferProvider(settings.apiEndpoint, settings.provider);
+  writeSettingsToForm(settings);
+  updateConfidenceLabel();
+  renderPresetState();
+  renderProviderState();
+  renderOverviewState();
+  await renderHistory();
+}
+
+function writeSettingsToForm(settings) {
   for (const [key, value] of Object.entries(settings)) {
     const input = form.elements.namedItem(key);
     if (!input) continue;
@@ -131,11 +173,22 @@ async function loadIntoForm() {
       input.value = String(value ?? "");
     }
   }
+}
+
+function applyImportedRules(rules) {
+  writeSettingsToForm(rules);
+  const preset = JingliuShared.FILTER_PRESETS[rules.activePreset];
+  const matchesPreset = preset && [
+    "profile",
+    "keepRules",
+    "filterAds",
+    "displayMode",
+    "confidenceThreshold"
+  ].every((key) => rules[key] === preset[key]);
+  activePreset = matchesPreset ? rules.activePreset : "custom";
   updateConfidenceLabel();
   renderPresetState();
-  renderProviderState();
   renderOverviewState();
-  await renderHistory();
 }
 
 function readForm() {

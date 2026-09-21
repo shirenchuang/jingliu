@@ -96,6 +96,74 @@
     other: "不符合当前规则"
   });
 
+  const RULE_EXPORT_KEYS = Object.freeze([
+    "activePreset",
+    "autoMode",
+    "profile",
+    "keepRules",
+    "hardBlockTerms",
+    "blockedAuthors",
+    "alwaysKeepAuthors",
+    "filterAds",
+    "displayMode",
+    "confidenceThreshold",
+    "decisionPrompt"
+  ]);
+
+  function createRulesBackup(settings, exportedAt = new Date()) {
+    const rules = {};
+    for (const key of RULE_EXPORT_KEYS) {
+      if (Object.prototype.hasOwnProperty.call(settings || {}, key)) {
+        rules[key] = settings[key];
+      }
+    }
+    return {
+      product: "Jingliu",
+      schemaVersion: 1,
+      exportedAt: exportedAt.toISOString(),
+      rules
+    };
+  }
+
+  function parseRulesBackup(payload) {
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      throw new Error("备份文件不是有效的 JSON 对象");
+    }
+    if (payload.product && payload.product !== "Jingliu") {
+      throw new Error("这不是静流规则备份");
+    }
+    if (payload.schemaVersion && payload.schemaVersion !== 1) {
+      throw new Error("该备份版本尚不支持");
+    }
+
+    const source = payload.rules && typeof payload.rules === "object" ? payload.rules : payload;
+    const rules = {};
+    const textKeys = [
+      "profile",
+      "keepRules",
+      "hardBlockTerms",
+      "blockedAuthors",
+      "alwaysKeepAuthors",
+      "decisionPrompt"
+    ];
+    for (const key of textKeys) {
+      if (typeof source[key] === "string") rules[key] = source[key].slice(0, 20_000);
+    }
+    if (["balanced", "research", "strict", "adsOnly", "custom"].includes(source.activePreset)) {
+      rules.activePreset = source.activePreset;
+    }
+    if (typeof source.autoMode === "boolean") rules.autoMode = source.autoMode;
+    if (typeof source.filterAds === "boolean") rules.filterAds = source.filterAds;
+    if (["collapse", "hide"].includes(source.displayMode)) rules.displayMode = source.displayMode;
+    if (Number.isFinite(Number(source.confidenceThreshold))) {
+      rules.confidenceThreshold = Math.min(0.95, Math.max(0.5, Number(source.confidenceThreshold)));
+    }
+    if (!Object.keys(rules).length) {
+      throw new Error("备份中没有可导入的静流规则");
+    }
+    return rules;
+  }
+
   async function loadSettings() {
     const stored = await chrome.storage.local.get(null);
     const settings = { ...DEFAULT_SETTINGS, ...stored };
@@ -114,6 +182,12 @@
     FILTER_PRESETS,
     JEV_PROVIDERS,
     REASON_LABELS,
+    RULE_EXPORT_KEYS,
+    createRulesBackup,
+    parseRulesBackup,
     loadSettings
   };
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = scope.JingliuShared;
+  }
 })(globalThis);

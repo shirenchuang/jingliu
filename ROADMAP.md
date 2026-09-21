@@ -9,13 +9,18 @@ Jingliu is intended to become a multi-platform feed filter, not an X-only extens
 - TypeSafe, OpenRouter, and custom Jev providers
 - Control console, browser tests, website, and public release
 
+## 0.6 — Portable rules and bilingual website
+
+- Chinese and English product website and privacy notice
+- Safe rule import and export without API keys or history
+- Public `v0.6.0` beta package
+
 ## Next — Distribution and internationalization
 
 - Submit to Chrome Web Store
 - Add English extension UI and localized store listings
 - Validate Microsoft Edge compatibility
 - Define a stable platform-adapter interface
-- Add configuration import and export
 
 ## Multi-platform expansion
 

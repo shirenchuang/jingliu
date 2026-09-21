@@ -382,6 +382,22 @@ summary:focus-visible {
 .ad-toggle strong { display: block; font-size: 11px; }
 .ad-toggle small { margin-top: 3px; }
 .rules-grid { display: grid; gap: 13px; grid-template-columns: 1.25fr 1fr 1fr; }
+.rules-backup {
+  align-items: center;
+  background: #f7f9fa;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 13px 14px;
+}
+.rules-backup strong,
+.rules-backup small { display: block; }
+.rules-backup strong { font-size: 11px; margin-bottom: 4px; }
+.rules-backup small { color: var(--muted); font-size: 9px; line-height: 1.5; }
+.rules-backup__actions { display: flex; flex: 0 0 auto; gap: 7px; }
 
 .panel--jev { position: relative; }
 .panel--jev::before {
@@ -522,6 +538,8 @@ summary:focus-visible {
   .endpoint-grid,
   .lower-grid { grid-template-columns: 1fr; }
   .provider-grid { grid-template-columns: 1fr; }
+  .rules-backup { align-items: stretch; flex-direction: column; }
+  .rules-backup__actions .secondary-button { flex: 1; }
   .display-choice { grid-template-columns: 1fr 1fr; }
   .savebar { align-items: stretch; flex-direction: column; gap: 9px; }
   .savebar > div { justify-content: flex-end; }

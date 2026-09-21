@@ -10,7 +10,9 @@ Jingliu is a local-first, user-controlled AI feed filter. It applies ad labels, 
 
 [![CI](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml/badge.svg)](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-101820.svg)](LICENSE)
-[![Download](https://img.shields.io/badge/Download-v0.5.0-315CFF.svg)](https://github.com/shirenchuang/jingliu/releases/latest)
+[![Download](https://img.shields.io/badge/Download-v0.6.0-315CFF.svg)](https://github.com/shirenchuang/jingliu/releases/latest)
+
+Website: [Chinese](https://jingliu.srcsxx.workers.dev/) · [English](https://jingliu.srcsxx.workers.dev/en)
 
 ![Jingliu control console](website/assets/control-console.png)
 
@@ -55,6 +57,7 @@ Roadmap items describe direction, not delivery dates. See [ROADMAP.md](ROADMAP.m
 - TypeSafe Jev, OpenRouter Jev, and custom SystemOne-compatible endpoints
 - Bring your own API key, stored in `chrome.storage.local`
 - Confidence safeguards, per-item restore, restore-all, and rescan
+- Import and export filter rules without API keys, history, or post content
 - No Jingliu account, telemetry SDK, or proxy server
 
 ## How it works

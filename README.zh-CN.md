@@ -11,6 +11,8 @@ X / Twitter 是第一个已经可用的平台适配器，而不是产品的最�
 [![CI](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml/badge.svg)](https://github.com/shirenchuang/jingliu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-101820.svg)](LICENSE)
 
+官网：[中文](https://jingliu.srcsxx.workers.dev/) · [English](https://jingliu.srcsxx.workers.dev/en)
+
 ![静流过滤控制台](website/assets/control-console.png)
 
 ## 为什么做静流
@@ -25,6 +27,7 @@ X / Twitter 是第一个已经可用的平台适配器，而不是产品的最�
 - TypeSafe Jev、OpenRouter Jev 与自定义 SystemOne 兼容端点
 - 用户自带 API Key，保存在 `chrome.storage.local`
 - 低置信度保护、单条恢复、整页恢复与重新扫描
+- 安全导入导出过滤规则，不包含 API Key、历史记录或推文内容
 - 适配 X 虚拟列表和 DOM 节点复用
 - 无账号、无遥测、无静流中转服务器
 
